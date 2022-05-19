@@ -9,6 +9,7 @@ import axios from "axios";
 import Colors from "../assets/styles/Colors";
 import RoomScreenStyles from "../assets/styles/RoomScreen";
 import HouseCard from "../components/HouseCard";
+import MapView from "react-native-maps";
 
 function RoomScreen({ route }) {
   const [data, setData] = useState();
@@ -22,6 +23,7 @@ function RoomScreen({ route }) {
         const response = await axios.get(
           `https://express-airbnb-api.herokuapp.com/rooms/${route.params.id}`
         );
+        console.log("response.data =", response.data);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -60,6 +62,23 @@ function RoomScreen({ route }) {
         >
           {data.description}
         </Text>
+        <MapView
+          style={RoomScreenStyles.mapView}
+          initialRegion={{
+            latitude: data.location[1],
+            longitude: data.location[0],
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          }}
+        >
+          <MapView.Marker
+            coordinate={{
+              latitude: data.location[1],
+              longitude: data.location[0],
+            }}
+            title={data.title}
+          />
+        </MapView>
       </TouchableOpacity>
     </ScrollView>
   );

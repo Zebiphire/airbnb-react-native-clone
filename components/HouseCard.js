@@ -19,6 +19,9 @@ const HouseCard = ({
   navigation,
   isClickable,
 }) => {
+  if (isClickable === null) {
+    isClickable = false;
+  }
   return (
     <TouchableOpacity
       style={HouseCardStyles.touchableOpacity}

@@ -21,7 +21,6 @@ const HomeScreen = ({ navigation }) => {
         const response = await axios.get(
           "https://express-airbnb-api.herokuapp.com/rooms"
         );
-        console.log("response =", response);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
